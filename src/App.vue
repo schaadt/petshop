@@ -1,14 +1,29 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <div class="container">
+      <Navigation />
+
     <router-view/>
+    </div>
   </div>
 </template>
 
-<style>
+
+
+<script>
+// @ is an alias to /src
+import Navigation from '@/components/Navigation.vue'
+
+export default {
+  name: 'App',
+  components: {
+    Navigation
+  }
+}
+</script>
+
+<style lang="css">
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
