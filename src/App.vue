@@ -39,7 +39,7 @@
         </article> 
         <aside class="side"><h2>BASKET</h2></aside>
         <div class="ad">Advertising</div>
-        <footer class="main-footer">The footerwdwdwd</footer>
+        <footer class="main-footer"><h2>THE FOOTER</h2></footer>
 </div>
   </div>
 </template>
