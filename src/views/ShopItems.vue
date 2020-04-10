@@ -8,7 +8,7 @@
 
 
   <ul class="listing">
-  <li v-for="item in ShopItems" :key="item.name" >
+  <li v-for="item in shopItems" :key="item.name" >
     <h3>{{item.name}}</h3>
     <div class="body"><p>The content of this listing item goes here.</p></div>
     <div class="cta"><h4>Pris: {{item.price}} DKK</h4> <button v-on:click="addToBasket(item)">Add To Basket</button>
@@ -51,21 +51,40 @@
 
 
 <script>
+import {dbAdminProduct} from '../firebase'
+
+
 export default {
-name: 'ShopItems',
+name: 'shopItems',
   data() {
    return {
 
      BasketItems:[],
 
-     ShopItems: [
+     shopItems: [
+       /*
        {name: 'Tennis Bolde', price:250},
        {name: 'Fisk Fra Canada', price:1020},
        {name: 'HundeGuf', price:22},
        {name: 'Drillepind', price:49}
+        */
      ]
    }
  },
+ created(){
+   dbAdminProduct.get() .then((querySnapshot) => {
+     querySnapshot.forEach((doc =>{
+       var productsData = doc.data();
+       this.shopItems.push({
+         id: doc.id,
+         name: productsData.name,
+         price: productsData.price
+       })
+        // console.log(doc.id, "=>", doc.data());
+     }))
+   })
+ },
+
  methods:{
    addToBasket(item){
      if(this.BasketItems.find(itemInArray => item.name === itemInArray.name)){

@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import ShopItems from '../views/ShopItems.vue'
 import Admin from '../views/Admin.vue'
 import AddNewItem from '../components/admin/AddNewItem.vue'
+import Login from '../components/admin/Login.vue'
 
 Vue.use(VueRouter)
 
@@ -38,6 +39,15 @@ const routes = [
     name: 'addNewItem',
     component: AddNewItem
   },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '*',
+    redirect: '/'
+  }
 ]
 
 const router = new VueRouter({

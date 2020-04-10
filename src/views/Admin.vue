@@ -8,10 +8,10 @@
 
 <button><router-link to="/AddNewItem">Add Item</router-link></button>
   <ul class="listing">
-  <li v-for="item in ShopItems" :key="item.name" >
+  <li v-for="item in shopItems" :key="item.name" >
     <h3>{{item.name}}</h3>
     <div class="body"><p>The content of this listing item goes here.</p></div>
-    <div class="cta"><h4>Pris: {{item.price}} DKK</h4> <button v-on:click="addToBasket(item)">Add To Basket</button>
+    <div class="cta"><h4>Pris: {{item.price}} DKK</h4><br><button v-on:click="deleteProduct(item.id)" class="deleteP">DELETE PRODUCT</button>
     </div>
   </li>
 </ul>        
@@ -51,22 +51,42 @@
 
 
 <script>
+import {dbAdminProduct} from '../firebase'
+
 export default {
-name: 'ShopItems',
+name: 'shopItems',
   data() {
    return {
 
      BasketItems:[],
 
-     ShopItems: [
-       {name: 'Tennis Bolde', price:250},
-       {name: 'Fisk Fra Canada', price:1020},
-       {name: 'HundeGuf', price:22},
-       {name: 'Drillepind', price:49}
+     shopItems: [
+
      ]
    }
  },
+  created(){
+   dbAdminProduct.get() .then((querySnapshot) => {
+     querySnapshot.forEach((doc =>{
+       var productsData = doc.data();
+       this.shopItems.push({
+         id: doc.id,
+         name: productsData.name,
+         price: productsData.price
+       })
+        // console.log(doc.id, "=>", doc.data());
+     }))
+   })
+ },
  methods:{
+   deleteProduct(id){
+     dbAdminProduct.doc(id).delete().then(function() {
+    console.log("Document successfully deleted!");
+      }).catch(function(error) {
+    console.error("Error removing document: ", error);
+      });
+   },
+
    addToBasket(item){
      if(this.BasketItems.find(itemInArray => item.name === itemInArray.name)){
        item = this.BasketItems.find(itemInArray => item.name === itemInArray.name)
@@ -110,6 +130,12 @@ name: 'ShopItems',
 
 
 <style lang="css">
+
+.deleteP{
+  background: crimson;
+  padding: 10px;
+  color:#ffffff;
+}
 
 .shopGrid {
   display: flex;
