@@ -16,14 +16,21 @@
 </template>
 
 <script>
-//import {dbAdminProduct} from '../firebase'
-/* import firebase from 'firebase'
+import {db} from '../firebase'
 import 'firebase/firestore'
+import firebase from 'firebase'
 import store from '../store/index.js'
 
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    store.dispatch('setUser', user)
+  } else {
+    store.dispatch('setUser', null)
+  }
+});
 
+/* 
 var user = firebase.auth().currentUser;
-
 if (user) {
   store.dispatch('setUser', user)
 } else {
