@@ -5,6 +5,8 @@ import ShopItems from '../views/ShopItems.vue'
 import Admin from '../views/Admin.vue'
 import AddNewItem from '../components/admin/AddNewItem.vue'
 import Login from '../components/admin/Login.vue'
+import firebase from 'firebase'
+import 'firebase/firestore'
 
 Vue.use(VueRouter)
 
@@ -32,12 +34,14 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
-    component: Admin
+    component: Admin,
+    meta: {requiresAuth: true}
   },
   {
     path: '/addNewItem',
     name: 'addNewItem',
-    component: AddNewItem
+    component: AddNewItem,
+    meta: {requiresAuth: true}
   },
   {
     path: '/login',
@@ -54,6 +58,17 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+
+router.beforeEach((to, from, next) =>{
+  const currentUser = firebase.auth().currentUser;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if(requiresAuth && !currentUser) next('Login');
+  else next();
+
+
 })
 
 export default router

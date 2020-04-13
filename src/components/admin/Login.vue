@@ -11,9 +11,42 @@
 </template>
 
 <script>
-    export default {
-        
+import firebase from 'firebase'
+import 'firebase/firestore'
+  export default {
+    data(){
+      return{
+        email: '',
+        password: ''
+      }
+  },
+  methods:{
+    logIn(){
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(() =>{
+       this.$router.replace('/admin') 
+      })
+      .catch(function(error){
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+          alert("Wrong PassWord")
+        } else {
+          alert (errorMessage)
+        }
+        console.log(error)
+      })
+    },
+    logOut(){
+      firebase.auth().signOut().then(() =>{
+        alert('Logged Out');
+        this.$router.replace('/Login') 
+      }).catch(error =>{
+        alert(error)
+      })
     }
+
+  }
+}
 </script>
 
 <style lang="scss" scoped>

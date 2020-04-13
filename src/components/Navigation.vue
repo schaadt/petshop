@@ -1,6 +1,9 @@
 <template>
         <nav class="main-nav">
           <h2>CATEGORIES</h2>
+          <div v-if="currentUser">
+            <h4>{{ currentUser}}</h4>
+          </div>
             <ul>
                 <li><a href="">Nav 1</a></li>
                 <li><a href="">Nav 2</a></li>
@@ -13,9 +16,28 @@
 </template>
 
 <script>
-    export default {
-        
+//import {dbAdminProduct} from '../firebase'
+/* import firebase from 'firebase'
+import 'firebase/firestore'
+import store from '../store/index.js'
+
+
+var user = firebase.auth().currentUser;
+
+if (user) {
+  store.dispatch('setUser', user)
+} else {
+  store.dispatch('setUser', null)
+} */
+
+
+export default {
+    computed:{
+        currentUser() {
+            return this.$store.getters.currentUser
+        }
     }
+}
 </script>
 
 <style scoped>

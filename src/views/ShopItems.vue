@@ -59,7 +59,7 @@ name: 'shopItems',
   data() {
    return {
 
-     BasketItems:[],
+     basketDump:[],
 
      shopItems: [
        /*
@@ -87,7 +87,7 @@ name: 'shopItems',
 
  methods:{
    addToBasket(item){
-     if(this.BasketItems.find(itemInArray => item.name === itemInArray.name)){
+/*      if(this.BasketItems.find(itemInArray => item.name === itemInArray.name)){
        item = this.BasketItems.find(itemInArray => item.name === itemInArray.name)
        this.increase(item)
      }
@@ -97,7 +97,15 @@ name: 'shopItems',
        price: item.price,
        quantity:1
      })
-     }
+     } */
+    this.basketDump.push({
+      name: item.name,
+      price: item.price,
+      quantity:1
+     });
+    this.$store.commit('addProductToBasket', this.basketDump);
+    this.basketDump = [];
+    //console.log('hvad er i kurven;', this.basketDump);
    },
    increase(item){
      item.quantity++
@@ -110,6 +118,13 @@ name: 'shopItems',
    }
  },
  computed: {
+
+   BasketItems(){
+     
+     return this.$store.getters.getBasketItems
+     //return this.$store.state.BasketItems
+   },
+
    subTotal() {
      let subCost = 0;
      for(let items in this.BasketItems) {
