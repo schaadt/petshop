@@ -8,10 +8,22 @@
 
 <button><router-link to="/AddNewItem">Add Item</router-link></button>
   <ul class="listing">
-  <li v-for="item in shopItems" :key="item.name" >
+  <li v-for="item in menuItems" :key="item.name" >
     <h3>{{item.name}}</h3>
     <div class="body"><p>The content of this listing item goes here.</p></div>
-    <div class="cta"><h4>Pris: {{item.price}} DKK</h4><br><button v-on:click="deleteProduct(item.id)" class="deleteP">DELETE PRODUCT</button>
+    <div class="cta"><h4>Pris: {{item.price}} DKK</h4><br><button v-on:click="deleteProduct(item.id)" class="deleteP">DELETE PRODUCT</button><br><br>
+    
+
+
+
+<label>Produkt Navn</label> <br>
+<input type="text" v-model="item.name" />
+<br><br>
+<label>Produkt Pris</label> <br>
+<input type="text" v-model="item.price" />
+<br><br>
+<button v-on:click="updateItem()" class="updateP">Update</button>
+
     </div>
   </li>
 </ul>        
@@ -53,32 +65,45 @@
 <script>
 import {dbAdminProduct} from '../firebase'
 
+
+
+
 export default {
-name: 'shopItems',
+name: 'modal',
   data() {
    return {
 
      BasketItems:[],
-
-     shopItems: [
-
-     ]
+     item:[],
+     activeEditItem: null
+     //menuItems: []
    }
  },
-  created(){
-   dbAdminProduct.get() .then((querySnapshot) => {
-     querySnapshot.forEach((doc =>{
-       var productsData = doc.data();
-       this.shopItems.push({
-         id: doc.id,
-         name: productsData.name,
-         price: productsData.price
-       })
-        // console.log(doc.id, "=>", doc.data());
-     }))
-   })
- },
+
+  beforeCreate(){
+    this.$store.dispatch('setMenuItems')
+  },
+
  methods:{
+
+  editItem(item){
+    this.item = item
+    this.activeEditItem = item.id
+  },
+
+  updateItem(){
+
+    dbAdminProduct.doc(this.activeEditItem).update(this.item)
+
+    .then(() => {
+    console.log("Document successfully updated!");
+    })
+    .catch(function(error) {
+    // The document probably doesn't exist.
+    console.error("Error updating document: ", error);
+    });
+  },
+
    deleteProduct(id){
      dbAdminProduct.doc(id).delete().then(function() {
     console.log("Document successfully deleted!");
@@ -111,6 +136,9 @@ name: 'shopItems',
    }
  },
  computed: {
+   menuItems() {
+     return this.$store.getters.getMenuItems
+   },
    subTotal() {
      let subCost = 0;
      for(let items in this.BasketItems) {
@@ -133,6 +161,13 @@ name: 'shopItems',
 
 .deleteP{
   background: crimson;
+  padding: 10px;
+  color:#ffffff;
+}
+
+
+.editP{
+  background: green;
   padding: 10px;
   color:#ffffff;
 }
@@ -178,6 +213,66 @@ name: 'shopItems',
   grid-template-columns: 1fr 1fr;
   margin-top: 25px;
 }
+
+/* Greeting Modal Container */
+#greeting-modal {
+  visibility: hidden;
+  opacity: 0;
+  transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+/* Greeting Modal Container - when open */
+#greeting-modal:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Greeting Modal */
+#greeting-modal .modal {
+  opacity: 0;
+  transform: translateY(-1rem);
+  transition: all .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition-delay: .2s;
+}
+
+/* Greeting Modal - when open */
+#greeting-modal:target .modal {
+transform: translateY(0);
+opacity: 1;
+}
+
+/* Modal Container Styles */
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Background Styles */
+.modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .2);
+}
+
+/* Modal Body Styles */
+.modal {
+  z-index: 1;
+  background-color: white;
+  width: 80%;
+  max-width: 500px;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
 
 
 </style>
