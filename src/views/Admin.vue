@@ -8,9 +8,9 @@
 
 <button><router-link to="/AddNewItem">Add Item</router-link></button>
   <ul class="listing">
-  <li v-for="item in menuItems" :key="item.name" >
+  <li v-for="item in menuItems" :key="item.id" >
     <h3>{{item.name}}</h3>
-    <div class="body"><p>The content of this listing item goes here.</p></div>
+    <div class="body"><p><img v-bind:src="item.image" alt="Hund" height="150" width="100"></p></div>
     <div class="cta"><h4>Pris: {{item.price}} DKK</h4><br><button v-on:click="deleteProduct(item.id)" class="deleteP">DELETE PRODUCT</button><br><br>
     
 
@@ -22,7 +22,7 @@
 <label>Produkt Pris</label> <br>
 <input type="text" v-model="item.price" />
 <br><br>
-<button v-on:click="updateItem()" class="updateP">Update</button>
+<button v-on:click="updateItem(item)" class="updateP">Update</button>
 
     </div>
   </li>
@@ -91,9 +91,9 @@ name: 'modal',
     this.activeEditItem = item.id
   },
 
-  updateItem(){
-
-    dbAdminProduct.doc(this.activeEditItem).update(this.item)
+  updateItem(item){
+    console.log("Itemsvalue: ", item, this.id);
+    dbAdminProduct.doc(item.id).update(item)
 
     .then(() => {
     console.log("Document successfully updated!");

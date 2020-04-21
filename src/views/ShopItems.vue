@@ -10,7 +10,7 @@
   <ul class="listing">
   <li v-for="item in shopItems" :key="item.name" >
     <h3>{{item.name}}</h3>
-    <div class="body"><p>The content of this listing item goes here.</p></div>
+    <div class="body"><p><img v-bind:src="item.image" alt="Hund" height="150" width="100"></p></div>
     <div class="cta"><h4>Pris: {{item.price}} DKK</h4> <button v-on:click="addToBasket(item)">Add To Basket</button>
     </div>
   </li>
@@ -51,7 +51,7 @@
 
 
 <script>
-import {dbAdminProduct} from '../firebase'
+//import {dbAdminProduct} from '../firebase'
 
 
 export default {
@@ -61,17 +61,21 @@ name: 'shopItems',
 
      basketDump:[],
 
-     shopItems: [
-       /*
-       {name: 'Tennis Bolde', price:250},
-       {name: 'Fisk Fra Canada', price:1020},
-       {name: 'HundeGuf', price:22},
-       {name: 'Drillepind', price:49}
-        */
-     ]
+    //  shopItems: [
+    //    /*
+    //    {name: 'Tennis Bolde', price:250},
+    //    {name: 'Fisk Fra Canada', price:1020},
+    //    {name: 'HundeGuf', price:22},
+    //    {name: 'Drillepind', price:49}
+    //     */
+    //  ]
    }
  },
- created(){
+
+   beforeCreate(){
+    this.$store.dispatch('setMenuItems')
+  },
+/*  created(){
    dbAdminProduct.get() .then((querySnapshot) => {
      querySnapshot.forEach((doc =>{
        var productsData = doc.data();
@@ -83,7 +87,7 @@ name: 'shopItems',
         // console.log(doc.id, "=>", doc.data());
      }))
    })
- },
+ }, */
 
  methods:{
    addToBasket(item){
@@ -123,6 +127,10 @@ name: 'shopItems',
      
      return this.$store.getters.getBasketItems
      //return this.$store.state.BasketItems
+   },
+
+     menuItems() {
+     return this.$store.getters.getMenuItems
    },
 
    subTotal() {
