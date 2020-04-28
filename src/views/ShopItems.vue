@@ -8,7 +8,7 @@
 
 
   <ul class="listing">
-  <li v-for="item in shopItems" :key="item.name" >
+  <li v-for="item in menuItems" :key="item.name" >
     <h3>{{item.name}}</h3>
     <div class="body"><p><img v-bind:src="item.image" alt="Hund" height="150" width="100"></p></div>
     <div class="cta"><h4>Pris: {{item.price}} DKK</h4> <button v-on:click="addToBasket(item)">Add To Basket</button>

@@ -11,6 +11,7 @@
                 <li><router-link to="/ShopItems">Store</router-link></li>
                 <li><router-link to="/Login">Login</router-link></li>  
                 <li><router-link to="/Admin">Admin</router-link></li> 
+                <li><router-link v-if="currentUser" to="/Orders">Orders</router-link></li> 
             </ul>
         </nav>
 </template>

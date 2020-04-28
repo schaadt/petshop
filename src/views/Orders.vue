@@ -1,0 +1,271 @@
+<template>
+<div>
+<article class="content">
+<h2>ORDERS</h2>
+<p>In this layout, we display the areas in source order for any screen less that 500 pixels wide. We go to a two column layout, and then to a three column layout by redefining the grid, and the placement of items on the grid.</p>
+
+
+<div class='some-page-wrapper'>
+  <div class='row'>
+    <div class='column'>
+      <div class='orange-column'>
+        <h1>Orders</h1>
+      </div>
+    </div>
+    <div class='column'>
+      <div class='blue-column'>
+         <h1>Revanue</h1>
+      </div>
+    </div>
+  </div>
+  <div class='row 2'>
+    <div class='column right'>
+        <div class="row">
+            <div class='column'>
+            <div class='green-column'>
+                Some Text in Row 2, Column One44
+            </div>
+            </div>
+            <div class='column'>
+                    <div class='green-column'>
+                Some Text in Row 2, Column One44
+            </div>
+            </div>
+      </div>
+    </div>
+    <div class='column'>
+      <div class='green-column'>
+        Some Text in Row 2, Column Two
+      </div>
+    </div>
+  </div>
+    <div class='row 2'>
+    <div class='column right'>
+      <div class='green-column'>
+            <tr class="orders-table">
+                <th class="orders-overview">Number</th>
+                <th class="orders-overview">QTY</th>
+                <th class="orders-overview">Name</th>
+                <th class="orders-overview">Price</th>
+                <th class="orders-overview">Status</th>
+                <th class="orders-overview">Archive</th>
+                <th class="orders-overview">Delete</th>
+            </tr>
+            <tr v-for="item in menuItems" :key="item.name">
+                <td class="orders-overview light">{{item.price}}</td>
+                <td class="orders-overview light">{{item.price}}</td>
+                <td class="orders-overview light">{{item.name}}</td>
+                <td class="orders-overview light">{{item.price}}</td>
+                <td class="orders-overview light"><button class="status">Status</button></td>
+                <td class="orders-overview light"><button v-on:click="addToBasket(item)">+</button></td>
+                <td class="orders-overview light"><button v-on:click="addToBasket(item)">-</button></td>
+            </tr>
+      </div>
+    </div>
+    <div class='column'>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+</article>
+</div>
+</template>
+
+
+
+<script>
+//import {dbAdminProduct} from '../firebase'
+
+
+export default {
+name: 'shopItems',
+  data() {
+   return {
+
+     basketDump:[],
+
+    //  shopItems: [
+    //    /*
+    //    {name: 'Tennis Bolde', price:250},
+    //    {name: 'Fisk Fra Canada', price:1020},
+    //    {name: 'HundeGuf', price:22},
+    //    {name: 'Drillepind', price:49}
+    //     */
+    //  ]
+   }
+ },
+
+   beforeCreate(){
+    this.$store.dispatch('setMenuItems')
+  },
+/*  created(){
+   dbAdminProduct.get() .then((querySnapshot) => {
+     querySnapshot.forEach((doc =>{
+       var productsData = doc.data();
+       this.shopItems.push({
+         id: doc.id,
+         name: productsData.name,
+         price: productsData.price
+       })
+        // console.log(doc.id, "=>", doc.data());
+     }))
+   })
+ }, */
+
+ methods:{
+   addToBasket(item){
+/*      if(this.BasketItems.find(itemInArray => item.name === itemInArray.name)){
+       item = this.BasketItems.find(itemInArray => item.name === itemInArray.name)
+       this.increase(item)
+     }
+     else{
+       this.BasketItems.push({
+       name: item.name,
+       price: item.price,
+       quantity:1
+     })
+     } */
+    this.basketDump.push({
+      name: item.name,
+      price: item.price,
+      quantity:1
+     });
+    this.$store.commit('addProductToBasket', this.basketDump);
+    this.basketDump = [];
+    //console.log('hvad er i kurven;', this.basketDump);
+   },
+   increase(item){
+     item.quantity++
+   },
+   descrease(item){
+     item.quantity--
+     if (item.quantity === 0) {
+       this.BasketItems.splice(this.BasketItems.indexOf(item), 1)
+     }
+   }
+ },
+ computed: {
+
+   BasketItems(){
+     
+     return this.$store.getters.getBasketItems
+     //return this.$store.state.BasketItems
+   },
+
+     menuItems() {
+     return this.$store.getters.getMenuItems
+   },
+
+   subTotal() {
+     let subCost = 0;
+     for(let items in this.BasketItems) {
+       let individualItem = this.BasketItems[items]
+       subCost += individualItem.quantity * individualItem.price
+     }
+     return subCost
+   },
+   total () {
+     let delivery = 50
+     let totalCost = this.subTotal
+     return totalCost + delivery
+   }
+ }
+}
+</script>
+
+
+<style lang="css">
+
+
+
+h1{
+   color: #e8e8e8; 
+}
+
+p{
+   color: #e8e8e8; 
+}
+
+.right{
+    margin-right: 10px;
+}
+
+.light{
+    color: #d2d7d3;
+}
+
+.orders {
+  margin-bottom: 0px;
+    display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+}
+
+.orders-table{
+      text-align: left;
+      width: 100%;
+}
+.orders-overview{
+    width: 10%;
+    text-align: left;
+}
+.orders-overview-item{
+    width: 5%;
+}
+
+.status{
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+   margin-right: 15px;
+}
+
+.row-orders {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+ 
+  margin-bottom: 5px;
+}
+
+.blue-column {
+  background-color: #2e3131;
+  height: 100px;
+}
+
+.orange-column {
+  background-color: #2e3131;
+  height: 100px;
+}
+
+.green-column {
+  background-color: #6c7a89;
+  min-height: 100px;
+  padding: 15px;
+  color: #ffffff;
+    flex-direction: column;  /* make main axis vertical */
+    justify-content: center; /* center items vertically, in this case */
+    align-items: center;     /* center items horizontally, in this case */
+}
+
+
+</style>
