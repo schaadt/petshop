@@ -51,21 +51,21 @@
                 <th class="orders-overview">Archive</th>
                 <th class="orders-overview">Delete</th>
             </tr>
-            
-            <tr v-for="item in orderItems" :key="item.name" v-if="item.storeOrder == false">
-            
-                <td class="orders-overview light">{{item.orderNumber}}</td>
 
-                <td class="orders-overview light"><p v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.quantity}}</p></td>
+            <tr v-for="item in orderItemsTest" :key="item.name">
+         
+            <td class="orders-overview light">{{item.orderNumber}}</td>
+
+                <td  class="orders-overview light"><p v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.quantity}}</p></td>
                 <td  class="orders-overview light"><p v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.name}}</p></td>
                 <td  class="orders-overview light"><p v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.price}}</p></td>
-                
-                <td class="orders-overview light"><button v-bind:class="item.status" @click="switchStatege(item.id)">{{item.status}}</button></td>
-
-
-                <td class="orders-overview light"><button v-on:click="archiveOrderItem(item.id)">Archive</button></td>
-                <td class="orders-overview light"><button v-on:click="deleteOrderItem(item.id)">-</button></td>
-            </tr>
+           
+            
+            <td class="orders-overview light"><button v-bind:class="item.status" @click="switchState(item.id)">{{item.status}}</button></td>
+            <td class="orders-overview light"><button v-on:click="archiveOrderItem(item.id)">Archive</button></td>
+            <td class="orders-overview light"><button v-on:click="deleteOrderItem(item.id)">-</button></td>
+            
+          </tr>
       </div>
     </div>
     <div class='column'>
@@ -194,8 +194,11 @@ name: 'shopItems',
    }
  },
  computed: {
+   orderItemsTest (){
+     return this.orderItems.filter(oItem => oItem.storeOrder == false)
+   },
 
-   BasketItems(){
+   basket(){
      
      return this.$store.getters.getBasketItems
      //return this.$store.state.BasketItems

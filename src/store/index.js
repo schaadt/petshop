@@ -11,12 +11,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    counter:0,
+    counter: 0,
     BasketItems: [
       // {name:'Orange Bold', price:250, quantity:1},
     ],
     menuItems:[],
-    orderItems:[],
+    orderItems:[{ }],
     currentUser: null
   },
   mutations: {
@@ -45,19 +45,21 @@ export default new Vuex.Store({
         dbOrders.onSnapshot((snapshotItems) => {
           orderItems = []  // empty it, or it will duplicate the stuff on delete
           snapshotItems.forEach((doc) => {
-            var orderItems = doc.data();
+            var orderItemsData = doc.data();
+             
             orderItems.push({ 
               // Spread operator istedet for at gøre det for hvert enkelte
-              ...orderItems, // spread operator - grabbing all the items (person, due, title, content, etc)
+              ...orderItemsData, // spread operator - grabbing all the items (person, due, title, content, etc)
               id: doc.id 
             })
            // console.log("Test:", menuItemData, "id: ", doc.id)
           })
+        
           state.orderItems = orderItems
         }
         )},
 
-    addCheckoutItem: (state, BasketItems) => {
+    addCheckoutItem: (state) => {
         dbOrders.add({
           archive: false,
           storeOrder:false,
