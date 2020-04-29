@@ -51,15 +51,19 @@
                 <th class="orders-overview">Archive</th>
                 <th class="orders-overview">Delete</th>
             </tr>
-            <tr v-for="item in orderItems" :key="item.name">
+            
+            <tr v-for="item in orderItems" :key="item.name" v-if="item.storeOrder == false">
+            
                 <td class="orders-overview light">{{item.orderNumber}}</td>
 
                 <td class="orders-overview light"><p v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.quantity}}</p></td>
                 <td  class="orders-overview light"><p v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.name}}</p></td>
                 <td  class="orders-overview light"><p v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.price}}</p></td>
                 
-                <td class="orders-overview light"><button class="status">{{item.status}}</button></td>
-                <td class="orders-overview light"><button v-on:click="addToBasket(item)">+</button></td>
+                <td class="orders-overview light"><button v-bind:class="item.status" @click="switchStatege(item.id)">{{item.status}}</button></td>
+
+
+                <td class="orders-overview light"><button v-on:click="archiveOrderItem(item.id)">Archive</button></td>
                 <td class="orders-overview light"><button v-on:click="deleteOrderItem(item.id)">-</button></td>
             </tr>
       </div>
@@ -119,6 +123,34 @@ name: 'shopItems',
  }, */
 
  methods:{
+
+   switchState(id){
+     let selectedOrderItems = this.orderItems.filter(item => item.id === id)[0];
+
+      if(selectedOrderItems.status === "inprogress"){
+        dbOrders.doc(id).update({status: "complete"})
+        .then(() =>{
+        })
+      }
+
+      else if(selectedOrderItems.status === "incomplete"){
+        dbOrders.doc(id).update({status: "inprogress"})
+        .then(() =>{
+        })
+      }
+
+      else if(selectedOrderItems.status === "complete"){
+        dbOrders.doc(id).update({status: "incomplete"})
+        .then(() =>{
+        })
+      }
+
+   },
+
+   archiveOrderItem(id){
+     dbOrders.doc(id).update({archive: true, storeOrder: true})
+     .then(() =>{})
+   },
 
    deleteOrderItem(id){
      dbOrders.doc(id).delete().then(() => {

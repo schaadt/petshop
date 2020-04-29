@@ -11,6 +11,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    counter:0,
     BasketItems: [
       // {name:'Orange Bold', price:250, quantity:1},
     ],
@@ -58,8 +59,10 @@ export default new Vuex.Store({
 
     addCheckoutItem: (state, BasketItems) => {
         dbOrders.add({
-          orderNumber: 2,
-          status: "not started",
+          archive: false,
+          storeOrder:false,
+          orderNumber: state.counter++,
+          status: "incomplete",
           orderLines: state.BasketItems
         })
       },
@@ -90,7 +93,7 @@ export default new Vuex.Store({
     }
   }
   },
-  
+
   actions: {
     setCheckoutItems(context){
       context.commit('addCheckoutItem')
