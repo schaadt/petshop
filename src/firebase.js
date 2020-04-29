@@ -19,3 +19,4 @@ var firebaseConfig = {
 
 export const db = firebase.firestore()
 export const dbAdminProduct = db.collection('AdminItems');
+export const dbOrders = db.collection('OrderItems');

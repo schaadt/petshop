@@ -39,7 +39,7 @@
 </div>
 <div class="basketTotal">
   <div>
- <button>CheckOut</button>
+ <button v-on:click="addCheckoutItem()">CheckOut</button>
   </div>
 
 </div>
@@ -90,6 +90,13 @@ name: 'shopItems',
  }, */
 
  methods:{
+
+   addCheckoutItem(){
+     this.$store.dispatch('setCheckoutItems')
+   },
+
+
+
    addToBasket(item){
 /*      if(this.BasketItems.find(itemInArray => item.name === itemInArray.name)){
        item = this.BasketItems.find(itemInArray => item.name === itemInArray.name)

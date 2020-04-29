@@ -51,14 +51,16 @@
                 <th class="orders-overview">Archive</th>
                 <th class="orders-overview">Delete</th>
             </tr>
-            <tr v-for="item in menuItems" :key="item.name">
-                <td class="orders-overview light">{{item.price}}</td>
-                <td class="orders-overview light">{{item.price}}</td>
-                <td class="orders-overview light">{{item.name}}</td>
-                <td class="orders-overview light">{{item.price}}</td>
-                <td class="orders-overview light"><button class="status">Status</button></td>
+            <tr v-for="item in orderItems" :key="item.name">
+                <td class="orders-overview light">{{item.orderNumber}}</td>
+
+                <td class="orders-overview light"><p v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.quantity}}</p></td>
+                <td  class="orders-overview light"><p v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.name}}</p></td>
+                <td  class="orders-overview light"><p v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.price}}</p></td>
+                
+                <td class="orders-overview light"><button class="status">{{item.status}}</button></td>
                 <td class="orders-overview light"><button v-on:click="addToBasket(item)">+</button></td>
-                <td class="orders-overview light"><button v-on:click="addToBasket(item)">-</button></td>
+                <td class="orders-overview light"><button v-on:click="deleteOrderItem(item.id)">-</button></td>
             </tr>
       </div>
     </div>
@@ -78,7 +80,7 @@
 
 
 <script>
-//import {dbAdminProduct} from '../firebase'
+import {dbOrders} from '../firebase'
 
 
 export default {
@@ -100,7 +102,7 @@ name: 'shopItems',
  },
 
    beforeCreate(){
-    this.$store.dispatch('setMenuItems')
+    this.$store.dispatch('setOrderItems')
   },
 /*  created(){
    dbAdminProduct.get() .then((querySnapshot) => {
@@ -117,6 +119,17 @@ name: 'shopItems',
  }, */
 
  methods:{
+
+   deleteOrderItem(id){
+     dbOrders.doc(id).delete().then(() => {
+       console.log("order deleted");
+     }).catch(() =>{
+
+     })
+   },
+
+
+
    addToBasket(item){
 /*      if(this.BasketItems.find(itemInArray => item.name === itemInArray.name)){
        item = this.BasketItems.find(itemInArray => item.name === itemInArray.name)
@@ -156,8 +169,8 @@ name: 'shopItems',
      //return this.$store.state.BasketItems
    },
 
-     menuItems() {
-     return this.$store.getters.getMenuItems
+     orderItems() {
+     return this.$store.getters.getOrderItems
    },
 
    subTotal() {
