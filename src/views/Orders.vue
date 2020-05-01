@@ -23,11 +23,11 @@
         <div class="row">
             <div class='column'>
             <div class='green-column'>
-                Some Text in Row 2, Column One44
+        
             </div>
             </div>
             <div class='column'>
-                    <div class='green-column'>
+                    <div class='green-column' >
                 Some Text in Row 2, Column One44
             </div>
             </div>
@@ -35,7 +35,22 @@
     </div>
     <div class='column'>
       <div class='green-column'>
-        Some Text in Row 2, Column Two
+            Total Orders <br>
+               {{orderItems.length}}
+               <br><br>
+              <br>
+               
+              <!-- eslint-disable -->
+              <span v-for="item in orderItems" :key="item.name" v-if="item.archive == true">
+              Ordernumber<br>
+               {{item.orderNumber}} - <button v-on:click="deleteOrderItem(item.id)">Delete Order</button><br><br>
+        
+              </span>
+              <br><br>
+               Total Revanue:
+               {{revenueTotalPrice}}
+              <!-- eslint-enable -->
+
       </div>
     </div>
   </div>
@@ -65,11 +80,12 @@
             <td class="orders-overview light"><button v-on:click="archiveOrderItem(item.id)">Archive</button></td>
             <td class="orders-overview light"><button v-on:click="deleteOrderItem(item.id)">-</button></td>
             
+            
           </tr>
       </div>
     </div>
     <div class='column'>
-
+  
     </div>
   </div>
 </div>
@@ -207,19 +223,16 @@ name: 'shopItems',
      orderItems() {
      return this.$store.getters.getOrderItems
    },
-
-   subTotal() {
-     let subCost = 0;
-     for(let items in this.BasketItems) {
-       let individualItem = this.BasketItems[items]
-       subCost += individualItem.quantity * individualItem.price
-     }
-     return subCost
-   },
-   total () {
-     let delivery = 50
-     let totalCost = this.subTotal
-     return totalCost + delivery
+   revenueTotalPrice(){
+     var revIncome = 0;
+     this.orderItems.forEach(element =>{
+       if(element.archive == true){
+         element.orderLines.forEach(elem => {
+           revIncome += elem.price * elem.quantity
+         })
+       }
+     });
+     return revIncome
    }
  }
 }
