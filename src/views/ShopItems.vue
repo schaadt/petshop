@@ -1,8 +1,8 @@
 <template>
 <div>
 <article class="content">
-<h2>LATEST PRODUCTS</h2>
-<p>In this layout, we display the areas in source order for any screen less that 500 pixels wide. We go to a two column layout, and then to a three column layout by redefining the grid, and the placement of items on the grid.</p>
+<h2 class="prodText">LATEST PRODUCTS</h2>
+<p class="prodText">Fusce a augue tortor. Phasellus nisl nisl, sodales quis placerat eget, porttitor non lorem.<br> Proin lobortis rutrum sem, eget pellentesque felis porttitor ac. Ut a lacinia libero. </p>
   
 
 
@@ -10,8 +10,10 @@
   <ul class="listing">
   <li v-for="item in menuItems" :key="item.name" >
     <h3>{{item.name}}</h3>
-    <div class="body"><p><img v-bind:src="item.image" alt="Hund" height="150" width="100"></p></div>
-    <div class="cta"><h4>Pris: {{item.price}} DKK</h4> <button v-on:click="addToBasket(item)">Add To Basket</button>
+    <div class="bodyDesc"><p class="prodText"><img v-bind:src="item.image" alt="Hund" height="120" width="100"><br/><br/>{{item.prodDescription}}</p>
+    
+    </div>
+    <div class="cta"><h4>Pris: {{item.price}} DKK</h4> <button class="buttonShop" v-on:click="addToBasket(item)">Add To Basket</button>
     </div>
   </li>
 </ul>        
@@ -27,14 +29,14 @@
 
 <div class="basketTotal">
   <div>
-    <p>SubTotal</p>
-    <p>Delevery</p>
-    <p>Total</p>
+    <p class="prodText">SubTotal</p>
+     <p class="prodText">Delevery</p>
+     <p class="prodText">Total</p>
   </div>
   <div>
-    <p>{{ subTotal }}</p>
-    <p>50</p>
-    <p>{{total}}</p>
+     <p class="prodText">{{ subTotal }}</p>
+     <p class="prodText">50</p>
+     <p class="prodText">{{total}}</p>
   </div>
 </div>
 <div class="basketTotal">
@@ -159,6 +161,11 @@ name: 'shopItems',
 
 
 <style lang="css">
+
+.prodText{
+  color: #111111;
+  line-height: 1.6em;
+}
 
 .shopGrid {
   display: flex;

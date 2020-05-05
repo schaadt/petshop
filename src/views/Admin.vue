@@ -1,28 +1,28 @@
 <template>
 <div>
 <article class="content">
-<h2>LATEST PRODUCTS</h2>
-<p>In this layout, we display the areas in source order for any screen less that 500 pixels wide. We go to a two column layout, and then to a three column layout by redefining the grid, and the placement of items on the grid.</p>
+<h2>Admin Page</h2>
+<p class="adminText">In this layout, we display the areas in source order for any screen less that 500 pixels wide. <br>We go to a two column layout, and then to a three column layout by redefining the grid, and the placement of items on the grid.</p>
   
 
 
-<button><router-link to="/AddNewItem">Add Item</router-link></button>
+<router-link class="addItem" to="/AddNewItem">Add Item</router-link>
   <ul class="listing">
   <li v-for="item in menuItems" :key="item.id" >
     <h3>{{item.name}}</h3>
     <div class="body"><p><img v-bind:src="item.image" alt="Hund" height="150" width="100"></p></div>
-    <div class="cta"><h4>Pris: {{item.price}} DKK</h4><br><button v-on:click="deleteProduct(item.id)" class="deleteP">DELETE PRODUCT</button><br><br>
+    <div class="cta"><h4>Pris: {{item.price}} DKK</h4><br><button v-on:click="deleteProduct(item.id)" class="buttonShop">Delete Product</button><br><br>
     
 
 
 
-<label>Produkt Navn</label> <br>
+<label>Product Name</label> <br>
 <input type="text" v-model="item.name" />
 <br><br>
-<label>Produkt Pris</label> <br>
+<label>Product Price</label> <br>
 <input type="text" v-model="item.price" />
 <br><br>
-<button v-on:click="updateItem(item)" class="updateP">Update</button>
+<button v-on:click="updateItem(item)" class="buttonShopUpdate">Update Product</button>
 
     </div>
   </li>
@@ -30,31 +30,8 @@
 </article>
 
 
-<div v-for="item in BasketItems" :key="item.name" class="grid-basket">
-  <div class="item2">{{item.price}}</div>
-  <div class="item4">{{item.name}}</div>
-   <div class="item5"><button v-on:click="increase(item)">+</button>  {{item.quantity}}  <button v-on:click="descrease(item)">-</button></div>
 
-</div>
 
-<div class="basketTotal">
-  <div>
-    <p>SubTotal</p>
-    <p>Delevery</p>
-    <p>Total</p>
-  </div>
-  <div>
-    <p>{{ subTotal }}</p>
-    <p>50</p>
-    <p>{{total}}</p>
-  </div>
-</div>
-<div class="basketTotal">
-  <div>
- <button>CheckOut</button>
-  </div>
-
-</div>
 
 
  </div>
@@ -158,6 +135,10 @@ name: 'modal',
 
 
 <style lang="css">
+
+.adminText{
+  color: #111111;
+}
 
 .deleteP{
   background: crimson;

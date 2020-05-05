@@ -1,28 +1,38 @@
 <template>
 <div>
-<article class="content">
+<article class="editContent">
 <div class="grid-add">
-<div class="addItem">  
+<div class="itemAdd">  
+
+<h2>Edit Content</h2>
 <form>
 <label>Produkt Navn</label> <br>
-<input v-model="name" />
+<input v-model="name"/>
 <br><br>
 <label>Produkt Pris</label> <br>
-<input v-model="price" />
+<input v-model="price"/>
+<br><br>
+<label>Description</label> <br>
+<input v-model="prodDescription"/>
+<br><br>
+<label>Category</label> <br>
+<input v-model="prodCategory"/>
 <br><br>
 <label>Image</label> <br>
 <input type="file" @change="uploadImage"/>
 <br><br><br><br>
 </form>
 
-<button v-on:click="addProduct()">Add Item</button> -- <button>Fortryd</button>
+<button class="buttonShopUpdate" v-on:click="addProduct()">Add Item</button>
 </div>   
 
 
 <div class="Preview">
-Preview<br><br>
+<h2>Preview</h2>
 <span>{{name}}</span><br>
 <span>{{price}}</span><br>
+<span>{{prodDescription}}</span><br>
+<span>{{prodCategory}}</span><br>
 </div>  
 </div>
 </article>
@@ -36,7 +46,10 @@ export default {
     return{
         name: '',
         price: '',
-        image: null
+        image: null,
+        prodDescription: '',
+        prodCategory: '',
+
     }
   },
   methods: {
@@ -66,7 +79,10 @@ export default {
           dbAdminProduct.add({
               name: this.name,
               price: this.price,
-              image: this.image
+              image: this.image,
+              prodDescription: this.prodDescription,
+              prodCategory: this.prodCategory
+
           })
       }
   }
@@ -77,7 +93,8 @@ export default {
 <style lang="css">
 
 
-.addItem { grid-area: AddItem;}
+.itemAdd { grid-area: AddItem;}
+
 .preview { grid-area: preview;}
 
 
@@ -87,6 +104,7 @@ export default {
     'AddItem AddItem AddItem preview preview preview';
   grid-gap: 10px;
   padding: 10px;
+  background-color: #ffffff;
 }
 
 

@@ -4,7 +4,7 @@
 <header class="main-head"><h1>Holly' The Dog's Petshop</h1></header>
 <Navigation />
 <router-view></router-view>
-
+<div class="ad"><h2>BASKET HERE</h2></div>
 <footer class="main-footer"><h2>THE FOOTER</h2></footer>
 </div>
 </div>
@@ -28,12 +28,17 @@ export default {
 
 <style lang="css">
 
+
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: #f4f7f6;
+  margin: 0;
+  min-height: 100vh;
 }
 
 #nav {

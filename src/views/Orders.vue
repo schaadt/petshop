@@ -2,12 +2,12 @@
 <div>
 <article class="content">
 <h2>ORDERS</h2>
-<p>In this layout, we display the areas in source order for any screen less that 500 pixels wide. We go to a two column layout, and then to a three column layout by redefining the grid, and the placement of items on the grid.</p>
+
 
 
 <div class='some-page-wrapper'>
   <div class='row'>
-    <div class='column'>
+    <div class='column right'>
       <div class='orange-column'>
         <h1>Orders</h1>
       </div>
@@ -20,42 +20,7 @@
   </div>
   <div class='row 2'>
     <div class='column right'>
-        <div class="row">
-            <div class='column'>
-            <div class='green-column'>
-        
-            </div>
-            </div>
-            <div class='column'>
-                    <div class='green-column' >
-                Some Text in Row 2, Column One44
-            </div>
-            </div>
-      </div>
-    </div>
-    <div class='column'>
-      <div class='green-column'>
-            Total Orders <br>
-               {{orderItems.length}}
-               <br><br>
-              <br>
-               
-              <!-- eslint-disable -->
-              <span v-for="item in orderItems" :key="item.name" v-if="item.archive == true">
-              Ordernumber<br>
-               {{item.orderNumber}} - <button v-on:click="deleteOrderItem(item.id)">Delete Order</button><br><br>
-        
-              </span>
-              <br><br>
-               Total Revanue:
-               {{revenueTotalPrice}}
-              <!-- eslint-enable -->
 
-      </div>
-    </div>
-  </div>
-    <div class='row 2'>
-    <div class='column right'>
       <div class='green-column'>
             <tr class="orders-table">
                 <th class="orders-overview">Number</th>
@@ -69,25 +34,46 @@
 
             <tr v-for="item in orderItemsTest" :key="item.name">
          
-            <td class="orders-overview light">{{item.orderNumber}}</td>
+            <td class="orders-overview">{{item.orderNumber}}</td>
 
-                <td  class="orders-overview light"><p v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.quantity}}</p></td>
-                <td  class="orders-overview light"><p v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.name}}</p></td>
-                <td  class="orders-overview light"><p v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.price}}</p></td>
+                <td  class="orders-overview"><p class="light" v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.quantity}}</p></td>
+                <td  class="orders-overview"><p class="light" v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.name}}</p></td>
+                <td  class="orders-overview"><p class="light" v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.price}}</p></td>
            
             
-            <td class="orders-overview light"><button v-bind:class="item.status" @click="switchState(item.id)">{{item.status}}</button></td>
-            <td class="orders-overview light"><button v-on:click="archiveOrderItem(item.id)">Archive</button></td>
-            <td class="orders-overview light"><button v-on:click="deleteOrderItem(item.id)">-</button></td>
+            <td class="orders-overview"><button v-bind:class="item.status" @click="switchState(item.id)">{{item.status}}</button></td>
+            <td class="orders-overview"><button class="orderA" v-on:click="archiveOrderItem(item.id)">Archive</button></td>
+            <td class="orders-overview"><button class="orderDelete" v-on:click="deleteOrderItem(item.id)">-</button><br><br></td>
+          
             
             
           </tr>
       </div>
+
+
     </div>
     <div class='column'>
-  
+      <div class='green-column'>
+            <p class="revOrder">Total Orders</p> <br>
+               {{orderItems.length}}
+               <br><br>
+              <br>
+               
+              <!-- eslint-disable -->
+              <span v-for="item in orderItems" :key="item.name" v-if="item.archive == true">
+              <p class="revOrder">Ordernumber</p><br>
+               {{item.orderNumber}} - <button class="orderDelete" v-on:click="deleteOrderItem(item.id)">Delete Order</button><br><br>
+        
+              </span>
+              <br><br>
+              <p class="revOrder"> Total Revanue:</p>
+               {{revenueTotalPrice}}
+              <!-- eslint-enable -->
+
+      </div>
     </div>
   </div>
+
 </div>
 
 
@@ -241,6 +227,46 @@ name: 'shopItems',
 
 <style lang="css">
 
+.revOrder{
+  color: #111111;
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.orderDelete {
+  background-color: #f62459; 
+  border: none;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.orderDelete:hover {
+  background-color: #db0a5b; /* Green */
+  color: white;
+}
+
+.orderA {
+  background-color: #4daf7c; 
+  border: none;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.orderA:hover {
+  background-color: #4daf7c; /* Green */
+  color: white;
+}
 
 
 h1{
@@ -256,7 +282,7 @@ p{
 }
 
 .light{
-    color: #d2d7d3;
+    color: #111111;
 }
 
 .orders {
@@ -264,6 +290,7 @@ p{
     display: flex;
   flex-direction: column;
   margin-bottom: 10px;
+  color: #111111;
 
 }
 
@@ -309,20 +336,20 @@ p{
 }
 
 .blue-column {
-  background-color: #2e3131;
   height: 100px;
+  background-color: #ffffff;
 }
 
 .orange-column {
-  background-color: #2e3131;
   height: 100px;
+  background-color: #ffffff;
 }
 
 .green-column {
-  background-color: #6c7a89;
+  background-color: #ffffff;
   min-height: 100px;
   padding: 15px;
-  color: #ffffff;
+  color: #111111;
     flex-direction: column;  /* make main axis vertical */
     justify-content: center; /* center items vertically, in this case */
     align-items: center;     /* center items horizontally, in this case */
