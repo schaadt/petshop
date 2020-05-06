@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import ShopItems from '../views/ShopItems.vue'
+import Dogs from '../views/Dogs.vue'
+import Cats from '../views/Cats.vue'
 import Admin from '../views/Admin.vue'
 import Orders from '../views/Orders.vue'
 import AddNewItem from '../components/admin/AddNewItem.vue'
@@ -22,6 +24,18 @@ const routes = [
     path: '/shopItems',
     name: 'ShopItems',
     component: ShopItems
+  },
+
+  {
+    path: '/dogs',
+    name: 'Dogs',
+    component: Dogs
+  },
+
+  {
+    path: '/cats',
+    name: 'Cats',
+    component: Cats
   },
   
   {

@@ -1,17 +1,19 @@
 <template>
 <div>
 <article class="content">
-<h2 class="prodText">LATEST PRODUCTS</h2>
+<h2 class="prodText">DOG ITEMS</h2>
 <p class="prodText">Fusce a augue tortor. Phasellus nisl nisl, sodales quis placerat eget, porttitor non lorem.<br> Proin lobortis rutrum sem, eget pellentesque felis porttitor ac. Ut a lacinia libero. </p>
 
   <ul class="listing">
-  <li v-for="item in menuItems" :key="item.name" >
+      <!-- eslint-disable -->
+  <li v-for="item in menuItems" :key="item.name" v-if="item.prodCategory === 'Dog'" >
     <h3>{{item.name}}</h3>
     <div class="bodyDesc"><p class="prodText"><img v-bind:src="item.image" alt="Hund" height="120" width="100"><br/><br/>{{item.prodDescription}}</p>
     </div>
     <div class="cta"><h4>Pris: {{item.price}} DKK</h4> <button class="buttonShop" v-on:click="addToBasket(item)">Add To Basket</button>
     </div>
   </li>
+     <!-- eslint-enable -->
 </ul>        
 </article>
 

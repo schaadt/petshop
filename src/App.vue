@@ -1,11 +1,13 @@
 <template>
 <div id="app">
 <div class="wrapper">
-<header class="main-head"><h1>Holly' The Dog's Petshop</h1></header>
+<header class="main-head"><Header /></header>
 <Navigation />
 <router-view></router-view>
-<div class="ad"><h2>BASKET HERE</h2></div>
-<footer class="main-footer"><h2>THE FOOTER</h2></footer>
+<div class="ad"><h2>BASKET HERE</h2>
+<ShopBasket />
+</div>
+<footer class="main-footer"><Footer /></footer>
 </div>
 </div>
 </template>
@@ -15,11 +17,17 @@
 <script>
 // @ is an alias to /src
 import Navigation from '@/components/Navigation.vue'
+import ShopBasket from '@/components/ShopBasket.vue'
+import Footer from '@/components/Footer.vue'
+import Header from '@/components/Header.vue'
 
 export default {
   name: 'App',
   components: {
     Navigation,
+    ShopBasket,
+    Footer,
+    Header
   },
 
 }

@@ -8,8 +8,8 @@
             <ul>
                 <li><router-link to="/">Home</router-link></li> 
                 <li><router-link to="/ShopItems">Store</router-link></li>
-                <li><router-link to="/ShopItems">Dog Products</router-link></li>
-                <li><router-link to="/ShopItems">Cat Products</router-link></li>
+                <li><router-link to="/Dogs">Dog Products</router-link></li>
+                <li><router-link to="/Cats">Cat Products</router-link></li>
                 <li><router-link to="/Login">Login</router-link></li>  
                 <li><router-link to="/Admin">Admin</router-link></li> 
                 <li><router-link v-if="currentUser" to="/Orders">Orders</router-link></li> 
