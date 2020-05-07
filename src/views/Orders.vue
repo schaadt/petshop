@@ -2,9 +2,6 @@
 <div>
 <article class="content">
 <h2>ORDERS</h2>
-
-
-
 <div class='some-page-wrapper'>
   <div class='row'>
     <div class='column right'>
@@ -20,7 +17,6 @@
   </div>
   <div class='row 2'>
     <div class='column right'>
-
       <div class='green-column'>
             <tr class="orders-table">
                 <th class="orders-overview">Number</th>
@@ -31,79 +27,45 @@
                 <th class="orders-overview">Archive</th>
                 <th class="orders-overview">Delete</th>
             </tr>
-
-            <tr v-for="item in orderItemsTest" :key="item.name">
-         
+            <tr v-for="item in orderItemsList" :key="item.name">
             <td class="orders-overview">{{item.orderNumber}}</td>
-
                 <td  class="orders-overview"><p class="light" v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.quantity}}</p></td>
                 <td  class="orders-overview"><p class="light" v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.name}}</p></td>
                 <td  class="orders-overview"><p class="light" v-for="subitem in item.orderLines" :key="subitem.id">{{subitem.price}}</p></td>
-           
-            
             <td class="orders-overview"><button v-bind:class="item.status" @click="switchState(item.id)">{{item.status}}</button></td>
             <td class="orders-overview"><button class="orderA" v-on:click="archiveOrderItem(item.id)">Archive</button></td>
-            <td class="orders-overview"><button class="orderDelete" v-on:click="deleteOrderItem(item.id)">-</button><br><br></td>
-          
-            
-            
+            <td class="orders-overview"><button class="orderDelete" v-on:click="deleteOrderItem(item.id)">-</button><br><br></td>       
           </tr>
       </div>
-
-
     </div>
     <div class='column'>
       <div class='green-column'>
             <p class="revOrder">Total Orders</p> <br>
                {{orderItems.length}}
-               <br><br>
-              <br>
-               
+               <br><br><br>   
               <!-- eslint-disable -->
               <span v-for="item in orderItems" :key="item.name" v-if="item.archive == true">
               <p class="revOrder">Ordernumber</p><br>
                {{item.orderNumber}} - <button class="orderDelete" v-on:click="deleteOrderItem(item.id)">Delete Order</button><br><br>
-        
               </span>
               <br><br>
               <p class="revOrder"> Total Revanue:</p>
                {{revenueTotalPrice}}
               <!-- eslint-enable -->
-
       </div>
     </div>
   </div>
-
 </div>
-
-
-
-
 </article>
 </div>
 </template>
 
-
-
 <script>
 import {dbOrders} from '../firebase'
-
-
 export default {
-name: 'shopItems',
   data() {
    return {
-
      basketDump:[],
-
-    //  shopItems: [
-    //    /*
-    //    {name: 'Tennis Bolde', price:250},
-    //    {name: 'Fisk Fra Canada', price:1020},
-    //    {name: 'HundeGuf', price:22},
-    //    {name: 'Drillepind', price:49}
-    //     */
-    //  ]
    }
  },
 
@@ -162,20 +124,7 @@ name: 'shopItems',
      })
    },
 
-
-
    addToBasket(item){
-/*      if(this.BasketItems.find(itemInArray => item.name === itemInArray.name)){
-       item = this.BasketItems.find(itemInArray => item.name === itemInArray.name)
-       this.increase(item)
-     }
-     else{
-       this.BasketItems.push({
-       name: item.name,
-       price: item.price,
-       quantity:1
-     })
-     } */
     this.basketDump.push({
       name: item.name,
       price: item.price,
@@ -196,16 +145,14 @@ name: 'shopItems',
    }
  },
  computed: {
-   orderItemsTest (){
+   orderItemsList (){
      return this.orderItems.filter(oItem => oItem.storeOrder == false)
    },
 
    basket(){
-     
      return this.$store.getters.getBasketItems
      //return this.$store.state.BasketItems
    },
-
      orderItems() {
      return this.$store.getters.getOrderItems
    },
@@ -354,6 +301,4 @@ p{
     justify-content: center; /* center items vertically, in this case */
     align-items: center;     /* center items horizontally, in this case */
 }
-
-
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div>
-<h1>FOOTER HERE </h1>
+<h1 class="copy">Copyright 2020 </h1>
     </div>
 </template>
 
@@ -10,6 +10,8 @@
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="css">
+.copy{
+    color: #ffffff;
+}
 </style>

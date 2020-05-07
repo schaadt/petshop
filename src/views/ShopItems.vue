@@ -3,7 +3,6 @@
 <article class="content">
 <h2 class="prodText">LATEST PRODUCTS</h2>
 <p class="prodText">Fusce a augue tortor. Phasellus nisl nisl, sodales quis placerat eget, porttitor non lorem.<br> Proin lobortis rutrum sem, eget pellentesque felis porttitor ac. Ut a lacinia libero. </p>
-
   <ul class="listing">
   <li v-for="item in menuItems" :key="item.name" >
     <h3>{{item.name}}</h3>
@@ -42,9 +41,6 @@
 
  </div>
 </template>
-
-
-
 <script>
 //import {dbAdminProduct} from '../firebase'
 export default {
@@ -58,7 +54,6 @@ name: 'shopItems',
   beforeCreate(){
     this.$store.dispatch('setMenuItems')
   },
-
 
  methods:{
 /*    addCheckoutItem(){
@@ -159,12 +154,9 @@ name: 'shopItems',
   font-size: 12px;
 }
 
-
 .basketTotal {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-top: 25px;
 }
-
-
 </style>

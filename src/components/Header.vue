@@ -7,19 +7,48 @@
                 </div>
             </div>
             <div class="column">
-                <div class="headerRight">
-                    <h1>Login</h1>
+                <div class="headerRight" v-if="currentUser">
+                    <Logout />
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
 <script>
-    export default {
-        
+import Logout from '@/components/Logout.vue'
+import firebase from 'firebase'
+import 'firebase/firestore'
+import store from '../store/index.js'
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    store.dispatch('setUser', user)
+  } else {
+    store.dispatch('setUser', null)
+  }
+});
+
+export default {
+  components: {
+    Logout
+  },
+    methods:{
+        logOut(){
+      firebase.auth().signOut().then(() =>{
+        alert('Logged Out');
+        this.$router.replace('/Login') 
+      }).catch(error =>{
+        alert(error)
+      })
     }
+    },
+    computed:{
+    currentUser() {
+    return this.$store.getters.currentUser      
+    }
+    }
+}
 </script>
 
 <style lang="css">
@@ -32,6 +61,7 @@
 .headerRight{
     text-align: right;
     padding: 20px;
+    margin-top: 25px;
 }
 
 .row {

@@ -1,7 +1,6 @@
 <template>
         <nav class="main-nav">
           <h2>MENU</h2>
-        
          <div class="loggedIn" v-if="currentUser">
            <p class="navText">{{ currentUser.email }}</p>
       </div>
@@ -18,8 +17,6 @@
 </template>
 
 <script>
-
-
 //import {db} from '../firebase'
 import firebase from 'firebase'
 import 'firebase/firestore'
@@ -32,8 +29,6 @@ firebase.auth().onAuthStateChanged(function(user) {
     store.dispatch('setUser', null)
   }
 });
-
-
 
 export default {
     computed:{
@@ -56,9 +51,7 @@ export default {
   color: #fff;
   font-size: 17px;
   font-weight: 600;
-
 }
-
 
 ul {
   padding-inline-start: 0px;
@@ -86,11 +79,7 @@ a:hover {
     color: #e4f1fe;
 }
 
-
-
 @media screen and (max-width:685px) {
-
-
 nav ul li {
   display:block;
   }
@@ -105,6 +94,4 @@ nav a {
  }
 
 }
-/* END MENU*/
-
 </style>

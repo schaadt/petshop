@@ -49,12 +49,9 @@ export default {
         image: null,
         prodDescription: '',
         prodCategory: '',
-
     }
   },
   methods: {
-
-
     uploadImage(e){
       let file = e.target.files[0];
       console.log(e.target.files[0])
@@ -92,11 +89,9 @@ export default {
 
 <style lang="css">
 
-
 .itemAdd { grid-area: AddItem;}
 
 .preview { grid-area: preview;}
-
 
 .grid-add {
   display: grid;
@@ -106,8 +101,5 @@ export default {
   padding: 10px;
   background-color: #ffffff;
 }
-
-
-
 
 </style>
