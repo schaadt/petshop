@@ -55,23 +55,23 @@ export default {
   },
 
   updateItem(item){
-    console.log("Itemsvalue: ", item, this.id);
+    console.log("Itemsvalue: ", item, this.id); // eslint-disable-line no-console
     dbAdminProduct.doc(item.id).update(item)
 
     .then(() => {
-    console.log("Document successfully updated!");
+    console.log("Document successfully updated!"); // eslint-disable-line no-console
     })
     .catch(function(error) {
     // The document probably doesn't exist.
-    console.error("Error updating document: ", error);
+    console.error("Error updating document: ", error); // eslint-disable-line no-console
     });
   },
 
    deleteProduct(id){
      dbAdminProduct.doc(id).delete().then(function() {
-    console.log("Document successfully deleted!");
+    console.log("Document successfully deleted!"); // eslint-disable-line no-console
       }).catch(function(error) {
-    console.error("Error removing document: ", error);
+    console.error("Error removing document: ", error); // eslint-disable-line no-console
       });
    },
 

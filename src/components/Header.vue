@@ -78,4 +78,27 @@ export default {
   flex: 1;
   margin-bottom: 5px;
 }
+
+
+
+
+@media screen and (max-width: 665px) {
+	.row .column {
+		flex-basis: 100%;
+		margin: 0 0 20px 0;
+  }
+
+  .headerLeft{
+    text-align: center;
+    padding: 20px;
+}
+
+.headerRight{
+    text-align: center;
+    padding: 20px;
+    margin-top: -25px;
+}
+  
+}
+
 </style>

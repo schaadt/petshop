@@ -118,7 +118,7 @@ export default {
 
    deleteOrderItem(id){
      dbOrders.doc(id).delete().then(() => {
-       console.log("order deleted");
+       console.log("order deleted"); // eslint-disable-line no-console
      }).catch(() =>{
 
      })

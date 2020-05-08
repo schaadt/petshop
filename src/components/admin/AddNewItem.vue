@@ -54,7 +54,7 @@ export default {
   methods: {
     uploadImage(e){
       let file = e.target.files[0];
-      console.log(e.target.files[0])
+      console.log(e.target.files[0]) // eslint-disable-line no-console
       var storageRef = fb.storage().ref('products/' + file.name);
       
       let uploadTask = storageRef.put(file)
@@ -67,7 +67,7 @@ export default {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
         this.image = downloadURL
-        console.log('File available at', downloadURL);
+        console.log('File available at', downloadURL); // eslint-disable-line no-console
         });
       });
     },

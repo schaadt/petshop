@@ -5,10 +5,10 @@
       Donec pharetra lacus vitae tortor rhoncus facilisis.<br> Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
     <div class="row">
       <div class="column right">
-        <div class="catBox"><h3>Cat Products</h3></div>
+        <div class="dogBox"><h3><router-link to="/Dogs">Dog Products</router-link></h3></div>
       </div>
       <div class="column">
-        <div class="dogBox"><h3>Dog Products</h3></div>
+        <div class="catBox"><h3><router-link to="/Cats">Cat Products</router-link></h3></div>
       </div>
     </div>
 
@@ -25,6 +25,21 @@ export default {
 
 <style lang="css">
 
+
+a {
+  color:#202121;
+  background-color: #fff;
+  display:block;
+  text-decoration: none;
+  padding:20px 30px;
+    font-size: 16px;
+    font-weight: 600;
+ }
+
+ a:hover {
+  background-color: #0087c4;
+    color: #e4f1fe;
+}
 .homeText{
   color: #111111;
     display: flex;
@@ -64,7 +79,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("../assets/hollyhund.jpg");
+  background-image: url("../assets/hollybold.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

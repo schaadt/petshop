@@ -33,7 +33,7 @@ import 'firebase/firestore'
         } else {
           alert (errorMessage)
         }
-        console.log(error)
+        console.log(error)// eslint-disable-line no-console
       })
     },
     logOut(){
